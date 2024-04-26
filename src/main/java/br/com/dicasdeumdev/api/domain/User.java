@@ -1,16 +1,18 @@
 package br.com.dicasdeumdev.api.domain;
 
-import jakarta.persistence.*;
 import lombok.*;
 
-@Data
+import javax.persistence.*;
+
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 
 public class User {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
 
