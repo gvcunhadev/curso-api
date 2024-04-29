@@ -2,7 +2,6 @@ package br.com.dicasdeumdev.api.resources.exceptions;
 
 import br.com.dicasdeumdev.api.services.exceptions.DataIntegratyViolationException;
 import br.com.dicasdeumdev.api.services.exceptions.ObjectNotFoundException;
-import com.sun.xml.bind.api.impl.NameConverter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
