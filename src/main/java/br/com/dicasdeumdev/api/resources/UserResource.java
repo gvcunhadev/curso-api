@@ -1,5 +1,6 @@
 package br.com.dicasdeumdev.api.resources;
 
+import br.com.dicasdeumdev.api.domain.User;
 import br.com.dicasdeumdev.api.domain.dto.UserDTO;
 import br.com.dicasdeumdev.api.services.UserService;
 import org.modelmapper.ModelMapper;
@@ -40,5 +41,11 @@ public class UserResource {
                 .buildAndExpand(service.create(obj)
                 .getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping (value = "/{id}")
+    public ResponseEntity<UserDTO> update(@PathVariable Integer id, @RequestBody UserDTO obj) {
+        obj.setId(id);
+        return ResponseEntity.ok().body(mapper.map(service.update(obj), UserDTO.class));
     }
 }
