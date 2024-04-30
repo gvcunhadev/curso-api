@@ -88,10 +88,10 @@ class UserServiceImplTest {
     }
 
     @Test
-    void whenCreateThenReturnSucess() {
+    void whenUpdateThenReturnSucess() {
         when(repository.save(any())).thenReturn(user);
 
-        User response = service.create(userDTO);
+        User response = service.update(userDTO);
 
         assertNotNull(response);
         assertEquals(User.class, response.getClass());
