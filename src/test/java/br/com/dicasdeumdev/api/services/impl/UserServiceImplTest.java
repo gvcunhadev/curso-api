@@ -5,6 +5,7 @@ import br.com.dicasdeumdev.api.domain.dto.UserDTO;
 import br.com.dicasdeumdev.api.repositories.UserRepository;
 import br.com.dicasdeumdev.api.services.exceptions.DataIntegratyViolationException;
 import br.com.dicasdeumdev.api.services.exceptions.ObjectNotFoundException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -27,7 +28,9 @@ class UserServiceImplTest {
     public static final String NAME    = "Valdir";
     public static final String EMAIL    = "valdir@mail.com";
     public static final String PASSWORD = "123";
-    public static final String OBJETO_NÃO_ENCONTRADO = "Objeto não encontrado";
+    public static final String OBJETO_NÃO_ENCONTRADO1 = "Objeto não encontrado";
+    public static final String OBJETO_NAO_ENCONTRADO = OBJETO_NÃO_ENCONTRADO1;
+    public static final String OBJETO_NÃO_ENCONTRADO = OBJETO_NAO_ENCONTRADO;
     public static final int INDEX = 0;
     public static final String E_MAIL_JA_CADASTRADO_NO_SISTEMA = "E-mail ja cadastrado no sistema";
     @InjectMocks
@@ -136,6 +139,23 @@ class UserServiceImplTest {
         verify(repository, times(1)).deleteById(anyInt());
     }
 
+    @Test
+    void deleteWithObjectNotFoundException() {
+        when(repository.findById(anyInt()))
+                .thenThrow(new ObjectNotFoundException(OBJETO_NAO_ENCONTRADO));
+
+        ObjectNotFoundException objectNotFoundException = Assertions
+                .assertThrows(ObjectNotFoundException.class, () -> service.delete(ID));
+        Assertions.assertEquals(OBJETO_NAO_ENCONTRADO, objectNotFoundException.getMessage());
+
+        /*try {
+            service.delete(ID);
+        } catch (Exception ex) {
+            assertEquals(ObjectNotFoundException.class, ex.getClass());
+            assertEquals ("OBJETO_NAO_ENCONTRADO", ex.getMessage());
+        }
+         */
+    }
     private void startUser() {
         user = new User(ID, NAME, EMAIL, PASSWORD);
         userDTO = new UserDTO(ID, NAME, EMAIL, PASSWORD);
