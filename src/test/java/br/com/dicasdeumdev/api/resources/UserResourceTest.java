@@ -64,7 +64,6 @@ class UserResourceTest {
         assertEquals(NAME, response.getBody().getName());
         assertEquals(EMAIL, response.getBody().getEmail());
         assertEquals(PASSWORD, response.getBody().getPassword());
-
     }
 
     @Test
